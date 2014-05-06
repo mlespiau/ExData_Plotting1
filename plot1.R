@@ -1,0 +1,5 @@
+source("getDataset.R")
+data <- getDataset()
+png("plot1.png", height=504, width=504, bg="transparent")
+hist(data$Global_active_power, col="red", main="Global Active Power", xlab="Global Active Power (kilowatts)")
+dev.off()
