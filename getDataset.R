@@ -9,7 +9,8 @@ getDataset <- function() {
   }
   unzip(destFile, exdir="./data/", overwrite=TRUE)
   rawData <- read.csv("./data/household_power_consumption.txt", header=TRUE, sep=";", na.strings="?")
-  rawData$Date <- as.Date(rawData$Date, format="%d/%m/%Y")
-  twoDaysData <- subset(rawData, Date >= "2007-02-01" & Date <= "2007-02-02")
+  dates <- paste(rawData$Date, rawData$Time)
+  rawData$DateTime <- as.POSIXct(dates, format="%d/%m/%Y %H:%M:%S", tz="GMT")
+  twoDaysData <- rawData[as.Date(rawData$DateTime) >= "2007-02-01" & as.Date(rawData$DateTime) < "2007-02-03",]
 }
 
